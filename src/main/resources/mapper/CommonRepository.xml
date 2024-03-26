@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="py.com.solar.commonsapi.repository.CommonRepository">
+    <resultMap id="regionMap"  type="Region">
+        <result column="code" jdbcType="INTEGER" property="code"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+    </resultMap>
+
+    <!--Para listar departamentos-->
+    <select id="getProvince" resultMap="regionMap">
+        select s.cod_departamento as code, s.descripcion as description from ba_departamentos s
+    </select>
+
+    <!--Para listar ciudades del Paraguay, según departamento-->
+    <select id="getCity" resultMap="regionMap">
+        select s.cod_ciudad as code, s.descripcion as description from ba_ciudades s where s.cod_pais = 586 and s.cod_departamento = #{provinceId}
+    </select>
+
+    <!--Para listar barrios del Paraguay, según pais, y codigo de ciudad-->
+    <select id="getNeighborhood" resultMap="regionMap">
+        select s.cod_barrio as code, s.descripcion as description from ba_barrios s where s.cod_pais = 586 and s.cod_ciudad = #{cityId}
+    </select>
+
+    <!-- envío de notificaciones -->
+    <select id="sendNotification" statementType="CALLABLE">
+        {CALL PAW_HBK.fu_reg_mensajes(
+        #{notification.documentNumber,jdbcType=VARCHAR,mode=IN},
+        #{notification.notificationType,jdbcType=VARCHAR,mode=IN},
+        #{notification.content,jdbcType=VARCHAR,mode=IN},
+        #{notification.phoneNumber,jdbcType=VARCHAR,mode=IN},
+        #{notification.email,jdbcType=VARCHAR,mode=IN},
+        #{notification.emailSubject,jdbcType=VARCHAR,mode=IN},
+        #{notification.personKind,jdbcType=VARCHAR,mode=IN},
+        #{notification.response,jdbcType=VARCHAR,mode=OUT}
+        )}
+    </select>
+
+</mapper>

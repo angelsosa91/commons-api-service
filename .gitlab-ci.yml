@@ -1,0 +1,4 @@
+include:
+  - project: 'bancadigital/devops/cicd-templates'
+    ref: main
+    file: '/templates/.gitlab-ci-template.yml'

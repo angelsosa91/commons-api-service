@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: test
+  application:
+    name: user-api-service
+  cloud:
+    config.enabled: false
+    vault.enabled: false

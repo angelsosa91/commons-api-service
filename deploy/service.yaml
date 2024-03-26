@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: commons-api-service-svc
+  #namespace: api-rest
+spec:
+  ports:
+    - targetPort: 8080
+      port: 80
+  selector:
+    app: commons-api-service
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: commons-api-service
+  #namespace: api-rest
+  labels:
+    account: springboottemplate

@@ -1,0 +1,143 @@
+plugins {
+    id 'org.springframework.boot' version '2.7.2'
+    id 'io.spring.dependency-management' version '1.0.12.RELEASE'
+    id "org.sonarqube" version "4.4.1.3373"
+    id 'idea'
+    id "jacoco"
+    id 'java'
+}
+
+group = 'py.com.solar'
+version = '0.0.1-SNAPSHOT'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+compileJava.options.compilerArgs = ['-parameters', '-Amapstruct.defaultComponentModel=spring']
+compileTestJava.options.compilerArgs = ['-parameters', '-Amapstruct.defaultComponentModel=spring']
+
+repositories {
+    mavenCentral()
+
+    maven {
+        url 'http://server-nexus.solar.com.py:8081/repository/Homebanking/'
+        allowInsecureProtocol = true
+        credentials {
+            username = System.getenv('MAVEN_USER')
+            password = System.getenv('MAVEN_PASS')
+        }
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+ext {
+    springCloudVersion = "2021.0.8"
+    commonsLang3Version = "3.12.0"
+    jacksonDatabindVersion = "2.13.3"
+    slf4jApiVersion = "1.7.32"
+    mapstructVersion = "1.4.2.Final"
+    lombokMapstructBinding = '0.2.0'
+    easyRandomCoreVersion = "5.0.0"
+    mockitoCoreVersion = "4.2.0"
+    springDocVersion = '1.6.11'
+    junitVersion = "4.13.2"
+    myBatisVersion = "2.2.2"
+    ojdbcVersion = '21.7.0.0'
+    commonsVersion = "1.0"
+    googleGuava = "33.0.0-jre"
+    ejbApi = "3.2"
+    okHttp = "10.2.0"
+    //keycloakLibsVersion = '21.0.1'
+    //vaultCoreVersion = "2.3.2"
+    //hikariVersion = "5.0.1"
+
+}
+
+dependencies {
+
+    annotationProcessor 'org.projectlombok:lombok',
+            "org.mapstruct:mapstruct-processor:${mapstructVersion}",
+            "org.projectlombok:lombok-mapstruct-binding:$lombokMapstructBinding"
+
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+    implementation "org.springframework.boot:spring-boot-starter-actuator",
+            "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.cloud:spring-cloud-starter",
+            "org.springframework.data:spring-data-commons",
+            "org.springframework.cloud:spring-cloud-starter-config",
+            "org.springframework.cloud:spring-cloud-starter-openfeign",
+            "org.springframework.cloud:spring-cloud-starter-bootstrap",
+            'org.springframework.cloud:spring-cloud-starter-vault-config',
+            'org.springframework.boot:spring-boot-starter-validation',
+            "org.apache.commons:commons-lang3:${commonsLang3Version}",
+            "org.mybatis.spring.boot:mybatis-spring-boot-starter:${myBatisVersion}",
+            "com.fasterxml.jackson.core:jackson-databind:${jacksonDatabindVersion}",
+            "org.slf4j:slf4j-api:${slf4jApiVersion}",
+            "org.mapstruct:mapstruct:${mapstructVersion}",
+            "org.springdoc:springdoc-openapi-ui:${springDocVersion}",
+            "com.oracle.database.jdbc:ojdbc11:${ojdbcVersion}",
+            "com.google.guava:guava:${googleGuava}",
+            "javax.ejb:javax.ejb-api:${ejbApi}",
+            "io.github.openfeign:feign-okhttp:${okHttp}",
+            'org.springframework.boot:spring-boot-starter-security',
+            'org.springframework.boot:spring-boot-starter-oauth2-client',
+            'org.springframework.boot:spring-boot-starter-oauth2-resource-server',
+            "py.com.solar.exceptions:commons-exceptions:${commonsVersion}"
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test',
+            "org.jeasy:easy-random-core:${easyRandomCoreVersion}",
+            "org.mockito:mockito-core:${mockitoCoreVersion}",
+            "junit:junit:${junitVersion}",
+            "org.testcontainers:vault:1.17.5",
+            "org.testcontainers:testcontainers:1.17.5"
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+sonar {
+    properties {
+        property "sonar.projectKey", "bancadigital_core_commons-api-service_c604dc17-e6c8-4ba8-869a-a01675c2abb8"
+        property "sonar.projectName", "commons-api-service"
+        property "sonar.qualitygate.wait", true
+    }
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+/*
+jacoco {
+    reportsDirectory = layout.buildDirectory.dir("$buildDir/jacoco")
+}
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.enabled true
+        html.outputLocation = layout.buildDirectory.dir("$buildDir/jacoco/html")
+    }
+}
+
+tasks.named('sonarqube').configure {
+    dependsOn test
+}
+*/

@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commons-api-service
+  #namespace: api-rest
+  labels:
+    app: commons-api-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commons-api-service
+  template:
+    metadata:
+      labels:
+        app: commons-api-service
+      annotations:
+        sidecar.istio.io/inject: "false"
+    spec:
+      serviceAccountName: commons-api-service
+      containers:
+        - name: commons-api-service
+          image: registry.solar.com.py/bancadigital/core/commons-api-service:release
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: ./logs
+              name: access-logs
+          envFrom:
+            - configMapRef:
+                name: global-configmap
+            - configMapRef:
+                name: env-configmap
+          resources:
+            requests:
+              memory: 512Mi
+              cpu: 1
+            limits:
+              memory: 1024Mi
+              cpu: 2
+      imagePullSecrets:
+        - name: regcred
+      volumes:
+        - name: access-logs
+          persistentVolumeClaim:
+            claimName: springboot-pv-claim
