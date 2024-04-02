@@ -21,5 +21,4 @@ public class NotificationEntity {
     private String email;
     private String emailSubject;
     private String personKind;
-    private String response;
 }

@@ -9,6 +9,7 @@
     <typeAliases>
         <typeAlias alias="Notification" type="py.com.solar.commonsapi.entity.NotificationEntity"/>
         <typeAlias alias="Region" type="py.com.solar.commonsapi.entity.RegionEntity"/>
+        <typeAlias alias="Message" type="py.com.solar.commonsapi.entity.MessageEntity"/>
     </typeAliases>
 
     <mappers>
