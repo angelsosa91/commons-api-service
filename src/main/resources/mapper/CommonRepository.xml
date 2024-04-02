@@ -25,6 +25,12 @@
     </select>
 
     <!-- envío de notificaciones -->
+    <resultMap id="messageMapping" type="Message">
+        <result column="codMensaje" property="codMensaje"/>
+        <result column="mensaje" property="mensaje"/>
+        <result column="tipMensaje" property="tipMensaje"/>
+    </resultMap>
+
     <select id="sendNotification" statementType="CALLABLE">
         {CALL PAW_HBK.fu_reg_mensajes(
         #{notification.documentNumber,jdbcType=VARCHAR,mode=IN},
@@ -34,7 +40,9 @@
         #{notification.email,jdbcType=VARCHAR,mode=IN},
         #{notification.emailSubject,jdbcType=VARCHAR,mode=IN},
         #{notification.personKind,jdbcType=VARCHAR,mode=IN},
-        #{notification.response,jdbcType=VARCHAR,mode=OUT}
+        #{message.codMensaje, mode=OUT, jdbcType=INTEGER, resultMap=messageMapping},
+        #{message.mensaje, mode=OUT, jdbcType=VARCHAR, resultMap=messageMapping},
+        #{message.tipMensaje, mode=OUT, jdbcType=VARCHAR, resultMap=messageMapping}
         )}
     </select>
 

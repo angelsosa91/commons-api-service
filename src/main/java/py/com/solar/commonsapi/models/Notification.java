@@ -42,8 +42,7 @@ public class Notification {
     @NotNull(message = "Tipo de persona obligatorio")
     @NotBlank(message = "Tipo de persona obligatorio")
     private String personKind;
-    @JsonIgnore
-    private String response;
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.JSON_STYLE);

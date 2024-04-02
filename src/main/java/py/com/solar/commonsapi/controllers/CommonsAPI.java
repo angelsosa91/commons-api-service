@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Region;
 import py.com.solar.commonsapi.service.CommonService;
@@ -19,6 +19,7 @@ import py.com.solar.commonsapi.utils.BaseAPI;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 @Tag(name = "CommonAPI", description = "Responsible for returning common data from the core")
 @RestController
@@ -48,8 +49,7 @@ public class CommonsAPI {
 
     @PostMapping("notification")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<Void> sendNotification(@Valid @RequestBody Notification notification) {
-        commonService.sendNotification(notification);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<CompletableFuture<MessageEntity>> sendNotification(@Valid @RequestBody Notification notification) {
+        return ResponseEntity.ok(commonService.sendNotification(notification));
     }
 }

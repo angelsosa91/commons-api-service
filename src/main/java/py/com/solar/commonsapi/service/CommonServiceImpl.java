@@ -2,7 +2,9 @@ package py.com.solar.commonsapi.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.mapper.CommonMapper;
+import py.com.solar.commonsapi.mapper.MessageMapper;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Region;
 import py.com.solar.commonsapi.repository.CommonRepository;
@@ -17,6 +19,7 @@ public class CommonServiceImpl implements CommonService {
 
     private final CommonRepository commonRepository;
     private final CommonMapper commonMapper;
+    private final MessageMapper messageMapper;
     @Override
     public List<Region> getProvince() {
         return commonMapper.regEntityToModel(commonRepository.getProvince());
@@ -33,16 +36,17 @@ public class CommonServiceImpl implements CommonService {
     }
 
     @Override
-    public void sendNotification(Notification notification) {
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
-            commonRepository.sendNotification(commonMapper.notModelToEntity(notification));
-            return "Message Send!";
+    public CompletableFuture<MessageEntity> sendNotification(Notification notification) {
+        CompletableFuture<MessageEntity> future = CompletableFuture.supplyAsync(() -> {
+            var message = MessageEntity.builder().build();
+            commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+
+            if(message.getCodMensaje() > 0)
+                throw new BusinessException(message.getMensaje());
+
+            return message;
         });
-        future.thenAccept(result -> System.out.println("The Result: " + result));
-        try {
-            Thread.sleep(300);
-        } catch (InterruptedException e) {
-            throw new BusinessException(e.getMessage());
-        }
+        future.thenAccept(messageMapper::toModel);
+        return future;
     }
 }
