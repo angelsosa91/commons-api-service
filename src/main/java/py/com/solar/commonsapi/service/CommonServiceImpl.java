@@ -38,7 +38,7 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public CompletableFuture<MessageEntity> sendNotification(Notification notification) {
         CompletableFuture<MessageEntity> future = CompletableFuture.supplyAsync(() -> {
-            var message = MessageEntity.builder().build();
+            MessageEntity message = new MessageEntity();
             commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
 
             if(message.getCodMensaje() > 0)
