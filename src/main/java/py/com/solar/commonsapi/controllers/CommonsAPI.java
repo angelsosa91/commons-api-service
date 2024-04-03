@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,7 +50,8 @@ public class CommonsAPI {
 
     @PostMapping("notification")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<CompletableFuture<MessageEntity>> sendNotification(@Valid @RequestBody Notification notification) {
-        return ResponseEntity.ok(commonService.sendNotification(notification));
+    public ResponseEntity<?> sendNotification(@Valid @RequestBody Notification notification) {
+        commonService.sendNotification(notification);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }
