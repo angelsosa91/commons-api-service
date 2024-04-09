@@ -46,4 +46,33 @@
         )}
     </select>
 
+
+        <resultMap id="OfficeMap"  type="Office">
+            <result column="descripcion_sucursal" jdbcType="VARCHAR" property="description"/>
+            <result column="direccion_sucursal" jdbcType="VARCHAR" property="address"/>
+            <result column="telefono_sucursal" jdbcType="VARCHAR" property="phone"/>
+            <result column="horario_atencion" jdbcType="VARCHAR" property="openingAt"/>
+            <result column="descripcion_ciudad" jdbcType="VARCHAR" property="cityDescription"/>
+            <result column="zona_sucursal" jdbcType="VARCHAR" property="officeZone"/>
+            <result column="ubicacion_sucursal" jdbcType="VARCHAR" property="officeGps"/>
+        </resultMap>
+
+        <!--Para listar sucursales-->
+        <select id="getAllOffices" resultMap="OfficeMap">
+            SELECT bo.DESCRIPCION descripcion_sucursal,
+            bo.DIRECCION  direccion_sucursal,
+            'Teléfono: '||bo.telefono telefono_sucursal,
+            'Lunes a Viernes '||sl.fun_obt_vmax_referencias('HORARIO_HB','HORARIO_HB') horario_atencion,
+            bc.DESCRIPCION descripcion_ciudad,
+            DECODE(bd.COD_DEPARTAMENTO,'11','Asunción y Gran Asunción','Interior del País') zona_sucursal,
+            bo.UBICACION ubicacion_sucursal
+            FROM 	BA_OFICINAS bo, BA_CIUDADES bc, BA_DEPARTAMENTOS bd
+            WHERE bo.COD_CIUDAD  = bc.COD_CIUDAD
+            AND bo.COD_PAIS  = bc.COD_PAIS
+            AND bc.COD_DEPARTAMENTO  = bd.COD_DEPARTAMENTO
+            AND bo.ESTADO ='A'
+            ORDER BY bc.COD_DEPARTAMENTO
+
+        </select>
+
 </mapper>
