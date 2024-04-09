@@ -48,13 +48,13 @@
 
 
         <resultMap id="OfficeMap"  type="Office">
-            <result column="descripcion_sucursal" jdbcType="VARCHAR" property="description"/>
+            <result column="descripcion_sucursal" jdbcType="VARCHAR" property="name"/>
             <result column="direccion_sucursal" jdbcType="VARCHAR" property="address"/>
             <result column="telefono_sucursal" jdbcType="VARCHAR" property="phone"/>
             <result column="horario_atencion" jdbcType="VARCHAR" property="openingAt"/>
-            <result column="descripcion_ciudad" jdbcType="VARCHAR" property="cityDescription"/>
-            <result column="zona_sucursal" jdbcType="VARCHAR" property="officeZone"/>
-            <result column="ubicacion_sucursal" jdbcType="VARCHAR" property="officeGps"/>
+            <result column="descripcion_ciudad" jdbcType="VARCHAR" property="city"/>
+            <result column="zona_sucursal" jdbcType="VARCHAR" property="zone"/>
+            <result column="ubicacion_sucursal" jdbcType="VARCHAR" property="location"/>
         </resultMap>
 
         <!--Para listar sucursales-->
