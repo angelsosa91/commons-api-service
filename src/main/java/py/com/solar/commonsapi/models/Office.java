@@ -20,7 +20,7 @@ public class Office {
 
     @NotNull(message = "Descripcion Obligatoria")
     @NotBlank(message = "Descripcion Obligatoria")
-    private String description;
+    private String name;
 
     @NotNull(message = "Direccion Obligatoria")
     @NotBlank(message = "Direccion Obligatoria")
@@ -34,11 +34,11 @@ public class Office {
 
     @NotNull(message = "Ciudad Obligatoria")
     @NotBlank(message = "Ciudad Obligatoria")
-    private String cityDescription;
+    private String city;
 
-    private String officeZone;
+    private String zone;
 
-    private String officeGps;
+    private String location;
 
     @Override
     public String toString() {

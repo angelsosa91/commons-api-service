@@ -9,12 +9,12 @@ import lombok.*;
 @Builder(toBuilder = true)
 public class OfficeEntity {
 
-    private String description;
+    private String name;
     private String address;
     private String phone;
     private String openingAt;
-    private String cityDescription;
-    private String officeZone;
-    private String officeGps;
+    private String city;
+    private String zone;
+    private String location;
 
 }
