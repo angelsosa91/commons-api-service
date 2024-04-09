@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.models.Notification;
+import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
 import py.com.solar.commonsapi.service.CommonService;
 import py.com.solar.commonsapi.utils.BaseAPI;
@@ -53,5 +54,12 @@ public class CommonsAPI {
     public ResponseEntity<?> sendNotification(@Valid @RequestBody Notification notification) {
         commonService.sendNotification(notification);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("offices")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    public ResponseEntity<List<Office>> getAllOffices(){
+
+        return ResponseEntity.ok(commonService.getAllOffices());
     }
 }

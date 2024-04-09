@@ -6,6 +6,7 @@ import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.mapper.CommonMapper;
 import py.com.solar.commonsapi.mapper.MessageMapper;
 import py.com.solar.commonsapi.models.Notification;
+import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
 import py.com.solar.commonsapi.models.enums.NotificationType;
 import py.com.solar.commonsapi.repository.CommonRepository;
@@ -64,4 +65,9 @@ public class CommonServiceImpl implements CommonService {
         future.thenAccept(messageMapper::toModel);
         return future;
     }
+    @Override
+    public List<Office> getAllOffices(){
+        return commonMapper.offEntityToModel(commonRepository.getAllOffices());
+    }
+
 }
