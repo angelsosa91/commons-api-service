@@ -8,4 +8,4 @@ resources:
 namespace: api-rest
 images:
 - name: registry.solar.com.py/bancadigital/core/commons-api-service
-  newTag: 7bc8f3d6
+  newTag: 37d1c075
