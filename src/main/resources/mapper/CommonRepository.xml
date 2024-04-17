@@ -10,17 +10,17 @@
     </resultMap>
 
     <!--Para listar departamentos-->
-    <select id="getProvince" resultMap="regionMap">
+    <select id="getDepartments" resultMap="regionMap">
         select s.cod_departamento as code, s.descripcion as description from ba_departamentos s
     </select>
 
     <!--Para listar ciudades del Paraguay, según departamento-->
-    <select id="getCity" resultMap="regionMap">
-        select s.cod_ciudad as code, s.descripcion as description from ba_ciudades s where s.cod_pais = 586 and s.cod_departamento = #{provinceId}
+    <select id="getCitiesByDepartmentId" resultMap="regionMap">
+        select s.cod_ciudad as code, s.descripcion as description from ba_ciudades s where s.cod_pais = 586 and s.cod_departamento = #{departmentId}
     </select>
 
     <!--Para listar barrios del Paraguay, según pais, y codigo de ciudad-->
-    <select id="getNeighborhood" resultMap="regionMap">
+    <select id="getNeighborhoodsByCityId" resultMap="regionMap">
         select s.cod_barrio as code, s.descripcion as description from ba_barrios s where s.cod_pais = 586 and s.cod_ciudad = #{cityId}
     </select>
 
@@ -46,33 +46,30 @@
         )}
     </select>
 
-
-        <resultMap id="OfficeMap"  type="Office">
-            <result column="descripcion_sucursal" jdbcType="VARCHAR" property="name"/>
-            <result column="direccion_sucursal" jdbcType="VARCHAR" property="address"/>
-            <result column="telefono_sucursal" jdbcType="VARCHAR" property="phone"/>
-            <result column="horario_atencion" jdbcType="VARCHAR" property="openingAt"/>
-            <result column="descripcion_ciudad" jdbcType="VARCHAR" property="city"/>
-            <result column="zona_sucursal" jdbcType="VARCHAR" property="zone"/>
-            <result column="ubicacion_sucursal" jdbcType="VARCHAR" property="location"/>
-        </resultMap>
-
-        <!--Para listar sucursales-->
-        <select id="getAllOffices" resultMap="OfficeMap">
-            SELECT bo.DESCRIPCION descripcion_sucursal,
-            bo.DIRECCION  direccion_sucursal,
-            'Teléfono: '||bo.telefono telefono_sucursal,
-            'Lunes a Viernes '||sl.fun_obt_vmax_referencias('HORARIO_HB','HORARIO_HB') horario_atencion,
-            bc.DESCRIPCION descripcion_ciudad,
-            DECODE(bd.COD_DEPARTAMENTO,'11','Asunción y Gran Asunción','Interior del País') zona_sucursal,
-            bo.UBICACION ubicacion_sucursal
-            FROM 	BA_OFICINAS bo, BA_CIUDADES bc, BA_DEPARTAMENTOS bd
-            WHERE bo.COD_CIUDAD  = bc.COD_CIUDAD
-            AND bo.COD_PAIS  = bc.COD_PAIS
-            AND bc.COD_DEPARTAMENTO  = bd.COD_DEPARTAMENTO
-            AND bo.ESTADO ='A'
-            ORDER BY bc.COD_DEPARTAMENTO
-
-        </select>
+    <resultMap id="OfficeMap"  type="Office">
+        <result column="descripcion_sucursal" jdbcType="VARCHAR" property="name"/>
+        <result column="direccion_sucursal" jdbcType="VARCHAR" property="address"/>
+        <result column="telefono_sucursal" jdbcType="VARCHAR" property="phone"/>
+        <result column="horario_atencion" jdbcType="VARCHAR" property="openingAt"/>
+        <result column="descripcion_ciudad" jdbcType="VARCHAR" property="city"/>
+        <result column="zona_sucursal" jdbcType="VARCHAR" property="zone"/>
+        <result column="ubicacion_sucursal" jdbcType="VARCHAR" property="location"/>
+    </resultMap>
+    <!--Para listar sucursales-->
+    <select id="getAllOffices" resultMap="OfficeMap">
+        SELECT bo.DESCRIPCION descripcion_sucursal,
+        bo.DIRECCION  direccion_sucursal,
+        'Teléfono: '||bo.telefono telefono_sucursal,
+        'Lunes a Viernes '||sl.fun_obt_vmax_referencias('HORARIO_HB','HORARIO_HB') horario_atencion,
+        bc.DESCRIPCION descripcion_ciudad,
+        DECODE(bd.COD_DEPARTAMENTO,'11','Asunción y Gran Asunción','Interior del País') zona_sucursal,
+        bo.UBICACION ubicacion_sucursal
+        FROM 	BA_OFICINAS bo, BA_CIUDADES bc, BA_DEPARTAMENTOS bd
+        WHERE bo.COD_CIUDAD  = bc.COD_CIUDAD
+        AND bo.COD_PAIS  = bc.COD_PAIS
+        AND bc.COD_DEPARTAMENTO  = bd.COD_DEPARTAMENTO
+        AND bo.ESTADO ='A'
+        ORDER BY bc.COD_DEPARTAMENTO
+    </select>
 
 </mapper>

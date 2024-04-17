@@ -31,22 +31,22 @@ public class CommonsAPI {
 
     private final CommonService commonService;
 
-    @GetMapping("provinces")
+    @GetMapping("departments")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<List<Region>> getProvince() {
-        return ResponseEntity.ok(commonService.getProvince());
+        return ResponseEntity.ok(commonService.getDepartments());
     }
 
-    @GetMapping("cities/{provinceId}")
+    @GetMapping("cities/{departmentId}")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<List<Region>> getCity(@PathVariable Integer provinceId) {
-        return ResponseEntity.ok(commonService.getCity(provinceId));
+    public ResponseEntity<List<Region>> getCity(@PathVariable Integer departmentId) {
+        return ResponseEntity.ok(commonService.getCitiesByDepartmentId(departmentId));
     }
 
     @GetMapping("neighborhoods/{cityId}")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
     public ResponseEntity<List<Region>> getNeighborhood(@PathVariable Integer cityId) {
-        return ResponseEntity.ok(commonService.getNeighborhood(cityId));
+        return ResponseEntity.ok(commonService.getNeighborhoodsByCityId(cityId));
     }
 
     @PostMapping("notification")

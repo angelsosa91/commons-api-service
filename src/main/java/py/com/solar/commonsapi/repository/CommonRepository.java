@@ -11,9 +11,9 @@ import java.util.List;
 
 @Mapper
 public interface CommonRepository {
-    List<RegionEntity> getProvince();
-    List<RegionEntity> getCity(@Param("provinceId") Integer provinceId);
-    List<RegionEntity> getNeighborhood(@Param("cityId") Integer cityId);
+    List<RegionEntity> getDepartments();
+    List<RegionEntity> getCitiesByDepartmentId(@Param("provinceId") Integer departmentId);
+    List<RegionEntity> getNeighborhoodsByCityId(@Param("cityId") Integer cityId);
     void sendNotification(@Param("notification") NotificationEntity notification, @Param("message") MessageEntity message);
     List<OfficeEntity> getAllOffices();
 

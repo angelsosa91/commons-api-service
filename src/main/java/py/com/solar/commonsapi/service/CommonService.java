@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface CommonService {
-    List<Region> getProvince();
-    List<Region> getCity(Integer provinceId);
-    List<Region> getNeighborhood(Integer cityId);
+    List<Region> getDepartments();
+    List<Region> getCitiesByDepartmentId(Integer departmentId);
+    List<Region> getNeighborhoodsByCityId(Integer cityId);
     CompletableFuture<MessageEntity> sendNotification(Notification notification);
 
     List<Office> getAllOffices();

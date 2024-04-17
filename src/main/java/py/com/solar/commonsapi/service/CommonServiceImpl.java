@@ -8,16 +8,13 @@ import py.com.solar.commonsapi.mapper.MessageMapper;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
-import py.com.solar.commonsapi.models.enums.NotificationType;
 import py.com.solar.commonsapi.repository.CommonRepository;
 import py.com.solar.exceptions.BusinessException;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static py.com.solar.commonsapi.models.enums.NotificationType.SMS;
-import static py.com.solar.commonsapi.models.enums.NotificationType.EMAIL;
-import static py.com.solar.commonsapi.models.enums.NotificationType.AMBOS;
+import static py.com.solar.commonsapi.models.enums.NotificationType.*;
 @Service
 @RequiredArgsConstructor
 public class CommonServiceImpl implements CommonService {
@@ -26,18 +23,18 @@ public class CommonServiceImpl implements CommonService {
     private final CommonMapper commonMapper;
     private final MessageMapper messageMapper;
     @Override
-    public List<Region> getProvince() {
-        return commonMapper.regEntityToModel(commonRepository.getProvince());
+    public List<Region> getDepartments() {
+        return commonMapper.regEntityToModel(commonRepository.getDepartments());
     }
 
     @Override
-    public List<Region> getCity(Integer provinceId) {
-        return commonMapper.regEntityToModel(commonRepository.getCity(provinceId));
+    public List<Region> getCitiesByDepartmentId(Integer departmentId) {
+        return commonMapper.regEntityToModel(commonRepository.getCitiesByDepartmentId(departmentId));
     }
 
     @Override
-    public List<Region> getNeighborhood(Integer cityId) {
-        return commonMapper.regEntityToModel(commonRepository.getNeighborhood(cityId));
+    public List<Region> getNeighborhoodsByCityId(Integer cityId) {
+        return commonMapper.regEntityToModel(commonRepository.getNeighborhoodsByCityId(cityId));
     }
 
     @Override
