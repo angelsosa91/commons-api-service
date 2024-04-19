@@ -14,10 +14,19 @@ import py.com.solar.commonsapi.models.enums.PersonTypeFilter;
 @Schema(name = "PersonFilter")
 public class PersonFilter {
 
+    @Schema(description = "Nombre completo de la persona")
     private String fullName;
+
+    @Schema(description = "Número de cuenta asociada a la persona")
     private String account;
+
+    @Schema(description = "Número de documento de la persona")
     private String documentNumber;
+
+    @Schema(description = "ID único de la persona")
     private String personId;
+
+    @Schema(description = "Tipo de persona (ej. cliente, empleado, etc.)")
     private PersonTypeFilter personType;
 
     @Override

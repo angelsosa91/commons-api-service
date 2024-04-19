@@ -18,26 +18,33 @@ import javax.validation.constraints.NotNull;
 @Schema(name = "Office")
 public class Office {
 
+    @Schema(description = "Nombre o descripción de la oficina")
     @NotNull(message = "Descripcion Obligatoria")
     @NotBlank(message = "Descripcion Obligatoria")
     private String name;
 
+    @Schema(description = "Dirección")
     @NotNull(message = "Direccion Obligatoria")
     @NotBlank(message = "Direccion Obligatoria")
     private String address;
 
+    @Schema(description = "Número de telefono")
     @NotNull(message = "Telefono Obligatoria")
     @NotBlank(message = "Telefono Obligatoria")
     private String phone;
 
+    @Schema(description = "Lugar, sector o sucursal de apertura")
     private String openingAt;
 
+    @Schema(description = "Ciudad")
     @NotNull(message = "Ciudad Obligatoria")
     @NotBlank(message = "Ciudad Obligatoria")
     private String city;
 
+    @Schema(description = "Zona")
     private String zone;
 
+    @Schema(description = "Localización")
     private String location;
 
     @Override

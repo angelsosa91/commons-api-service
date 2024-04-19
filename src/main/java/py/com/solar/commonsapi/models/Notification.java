@@ -21,24 +21,37 @@ import static py.com.solar.commonsapi.utils.DateFormatUtils.DEFAULT_DATE_TIME_FO
 @AllArgsConstructor
 @NoArgsConstructor
 @Schema(name = "Notification")
-
 public class Notification {
+
+    @Schema(description = "Número de documento")
     @NotNull(message = "Documento obligatorio")
     @NotBlank(message = "Documento obligatorio")
     private String documentNumber;
+
+    @Schema(description = "Tipo de Notificacion")
     @NotNull(message = "Tipo de Notificacion obligatorio")
     @NotBlank(message = "Tipo de Notificacion obligatorio")
     private String notificationType;
+
+    @Schema(description = "Contenido de mensaje")
     @NotNull(message = "Contenido de mensaje obligatorio")
     @NotBlank(message = "Contenido de mensaje obligatorio")
     private String content;
+
+    @Schema(description = "Número de teléfono")
     @NotNull(message = "Celular obligatorio")
     @NotBlank(message = "Celular obligatorio")
     private String phoneNumber;
+
+    @Schema(description = "Correo electrónico")
     @NotNull(message = "Email obligatorio")
     @NotBlank(message = "Email obligatorio")
     private String email;
+
+    @Schema(description = "Asunto del correo electrónico")
     private String emailSubject;
+
+    @Schema(description = "Tipo de persona")
     @NotNull(message = "Tipo de persona obligatorio")
     @NotBlank(message = "Tipo de persona obligatorio")
     private String personKind;
