@@ -44,4 +44,4 @@ spec:
       volumes:
         - name: access-logs
           persistentVolumeClaim:
-            claimName: springboot-pv-claim
+            claimName: hb-core-pv-claim
