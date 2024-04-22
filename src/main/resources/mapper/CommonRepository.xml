@@ -5,8 +5,8 @@
 
 <mapper namespace="py.com.solar.commonsapi.repository.CommonRepository">
     <resultMap id="regionMap"  type="Region">
-        <result column="code" jdbcType="INTEGER" property="code"/>
-        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="code" jdbcType="INTEGER" property="id"/>
+        <result column="description" jdbcType="VARCHAR" property="name"/>
     </resultMap>
 
     <!--Para listar departamentos-->

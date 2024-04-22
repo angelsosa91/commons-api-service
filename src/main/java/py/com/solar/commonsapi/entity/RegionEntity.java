@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class RegionEntity {
-    private Integer code;
-    private String description;
+    private Integer id;
+    private String name;
 }
