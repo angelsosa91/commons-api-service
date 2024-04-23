@@ -1,4 +1,105 @@
-include:
-  - project: 'bancadigital/devops/cicd-templates'
-    ref: main
-    file: '/templates/.gitlab-ci-template.yml'
+variables:
+  DOCKER_IMAGE_SHA: '${HARBOR_URL}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:${CI_COMMIT_SHORT_SHA}'
+  JAVA_OPTS: "-Duser.timezone='America/Asuncion'"
+
+stages:
+  - test
+  - build
+  - package
+  - deploy-desa
+  - deploy-homol
+
+cache:
+  key: ${CI_PROJECT_NAME}
+  paths:
+    - .gradle/
+
+testing:
+  image: registry.solar.com.py/library/eclipse-temurin:11.0.20.1_1-jdk-alpine
+  stage: test
+  tags:
+    - docker-stag
+  script:
+    - echo "Testing..."
+    - chmod +x ./gradlew
+    - ./gradlew clean test
+  only:
+    - develop
+    - main
+    - develop
+    - release
+    - /^release-fix-v[0-9]+(?:.[0-9]+)+-+S[0-9][0-9]$/
+
+building:
+  image: registry.solar.com.py/library/eclipse-temurin:11.0.20.1_1-jdk-alpine
+  stage: build
+  tags:
+    - docker-stag
+  only:
+    - develop
+    - main
+    - release
+    - /^release-fix-v[0-9]+(?:.[0-9]+)+-+S[0-9][0-9]$/
+  script:
+    - chmod +x ./gradlew
+    - ./gradlew clean bootJar
+  artifacts:
+    expire_in: 20min
+    paths:
+      - build/libs/*
+
+package:
+  image: registry.solar.com.py/library/docker:24.0.6-cli-alpine3.18
+  stage: package
+  tags:
+    - docker-stag
+  only:
+    - develop
+    - main
+    - release
+    - /^release-fix-v[0-9]+(?:.[0-9]+)+-+S[0-9][0-9]$/
+  variables:
+    DOCKER_IMAGE_RELEASE: '${HARBOR_URL}/${CI_PROJECT_NAMESPACE}/${CI_PROJECT_NAME}:release'
+  script:
+    - echo "Build docker image"
+    - docker logout && echo "$HARBOR_TOKEN" | docker login --username "$HARBOR_USER" --password-stdin $HARBOR_URL/$CI_PROJECT_NAMESPACE
+    - docker build -t $DOCKER_IMAGE_SHA .
+    - docker tag $DOCKER_IMAGE_SHA $DOCKER_IMAGE_RELEASE
+    - docker push $DOCKER_IMAGE_SHA
+    - docker push $DOCKER_IMAGE_RELEASE
+
+deploy-desa:
+  image:
+    name: registry.solar.com.py/library/kubectl:latest
+    entrypoint: [ "" ]
+  stage: deploy-desa
+  environment:
+    name: staging
+  tags:
+    - docker-stag
+  only:
+    - develop
+  dependencies:
+    - package
+  script:
+    - echo "Deploy in progress (Staging)..."
+    - echo $KUBECONFIG | base64 -d > /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
+    - kubectl set image deployment/$CI_PROJECT_NAME ${CI_PROJECT_NAME}=${DOCKER_IMAGE_SHA} -n desa --kubeconfig $KUBECONFIG
+
+deploy-homol:
+  image:
+    name: registry.solar.com.py/library/kubectl:latest
+    entrypoint: [ "" ]
+  stage: deploy-homol
+  environment:
+    name: staging
+  tags:
+    - docker-stag
+  only:
+    - main
+  dependencies:
+    - deploy-desa
+  script:
+    - echo "Deploy in progress (Staging)..."
+    - kubectl set image deployment/$CI_PROJECT_NAME ${CI_PROJECT_NAME}=${DOCKER_IMAGE_SHA} -n homol --kubeconfig $KUBECONFIG
