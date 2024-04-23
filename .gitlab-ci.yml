@@ -102,4 +102,6 @@ deploy-homol:
     - deploy-desa
   script:
     - echo "Deploy in progress (Staging)..."
+    - echo $KUBECONFIG | base64 -d > /tmp/kubeconfig
+    - export KUBECONFIG=/tmp/kubeconfig
     - kubectl set image deployment/$CI_PROJECT_NAME ${CI_PROJECT_NAME}=${DOCKER_IMAGE_SHA} -n homol --kubeconfig $KUBECONFIG
