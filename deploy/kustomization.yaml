@@ -1,11 +1,8 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-- namespace.yaml
 - deployment.yaml
 - service.yaml
-  #- ingress.yaml
-namespace: api-rest
 images:
 - name: registry.solar.com.py/bancadigital/core/commons-api-service
   newTag: ed89e09f

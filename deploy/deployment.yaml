@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: commons-api-service
-  #namespace: api-rest
   labels:
     app: commons-api-service
 spec:
