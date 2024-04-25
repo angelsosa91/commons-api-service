@@ -5,4 +5,4 @@ resources:
 - service.yaml
 images:
 - name: registry.solar.com.py/bancadigital/core/commons-api-service
-  newTag: ed89e09f
+  newTag: cc2c1c50
