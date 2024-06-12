@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
@@ -21,7 +20,6 @@ import py.com.solar.commonsapi.utils.BaseAPI;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 @Tag(name = "CommonAPI", description = "Responsible for returning common data from the core")
 @RestController
