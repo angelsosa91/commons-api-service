@@ -1,3 +1,4 @@
+#CICD
 include:
   - project: 'bancadigital/devops/cicd-templates'
     ref: main
