@@ -32,7 +32,7 @@
     </resultMap>
 
     <select id="sendNotification" statementType="CALLABLE">
-        {CALL PAW_HBK.fu_reg_mensajes(
+        {CALL PAW_HBK.pr_reg_mensajes(
         #{notification.documentNumber,jdbcType=VARCHAR,mode=IN},
         #{notification.notificationType,jdbcType=VARCHAR,mode=IN},
         #{notification.content,jdbcType=VARCHAR,mode=IN},
