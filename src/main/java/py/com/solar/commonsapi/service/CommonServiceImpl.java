@@ -45,13 +45,13 @@ public class CommonServiceImpl implements CommonService {
             if (AMBOS.getValue().equals(notification.getNotificationType())) {
                 //SMS
                 notification.setNotificationType("SM");
-                commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+                //commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
                 //EMAIL
                 notification.setNotificationType("EM");
-                commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+                //commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             } else {
                 //SMS or EMAIL
-                commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+                //commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             }
 
             if(message.getCodMensaje() > 0)
