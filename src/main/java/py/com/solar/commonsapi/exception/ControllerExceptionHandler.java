@@ -29,7 +29,7 @@ public class ControllerExceptionHandler extends CommonsExceptionHandler {
 
     private ErrorMessage buildErrorMessage(Exception e, HttpStatus httpStatus, WebRequest request) {
         return ErrorMessage.builder()
-                .statusCode(httpStatus.value())
+                .status(httpStatus.value())
                 .timestamp(LocalDateTime.now())
                 .message(e.getMessage())
                 .description(request.getDescription(true))
