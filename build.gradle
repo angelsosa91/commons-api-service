@@ -51,13 +51,10 @@ ext {
     junitVersion = "4.13.2"
     myBatisVersion = "2.2.2"
     ojdbcVersion = '21.7.0.0'
-    commonsVersion = "1.0"
+    commonsVersion = "1.1"
     googleGuava = "33.0.0-jre"
     ejbApi = "3.2"
     okHttp = "10.2.0"
-    //keycloakLibsVersion = '21.0.1'
-    //vaultCoreVersion = "2.3.2"
-    //hikariVersion = "5.0.1"
 
 }
 
@@ -125,19 +122,3 @@ sonar {
 test {
     finalizedBy jacocoTestReport
 }
-/*
-jacoco {
-    reportsDirectory = layout.buildDirectory.dir("$buildDir/jacoco")
-}
-jacocoTestReport {
-    dependsOn test
-    reports {
-        xml.enabled true
-        html.outputLocation = layout.buildDirectory.dir("$buildDir/jacoco/html")
-    }
-}
-
-tasks.named('sonarqube').configure {
-    dependsOn test
-}
-*/
