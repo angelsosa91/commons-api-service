@@ -31,20 +31,22 @@ public class CommonsAPI {
 
     @GetMapping("departments")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<List<Region>> getProvince() {
+    public ResponseEntity<List<Region>> getProvince() throws Exception {
         return ResponseEntity.ok(commonService.getDepartments());
     }
 
     @GetMapping("cities/{departmentId}")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<List<Region>> getCity(@PathVariable Integer departmentId) {
-        return ResponseEntity.ok(commonService.getCitiesByDepartmentId(departmentId));
+    public ResponseEntity<List<Region>> getCity(@PathVariable Integer departmentId) throws Exception {
+        var result = commonService.getCitiesByDepartmentId(departmentId);
+        return (result.isEmpty() ? ResponseEntity.noContent().build(): ResponseEntity.ok(result));
     }
 
     @GetMapping("neighborhoods/{cityId}")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<List<Region>> getNeighborhood(@PathVariable Integer cityId) {
-        return ResponseEntity.ok(commonService.getNeighborhoodsByCityId(cityId));
+    public ResponseEntity<List<Region>> getNeighborhood(@PathVariable Integer cityId) throws Exception {
+        var result = commonService.getNeighborhoodsByCityId(cityId);
+        return (result.isEmpty() ? ResponseEntity.noContent().build(): ResponseEntity.ok(result));
     }
 
     @PostMapping("notification")
@@ -56,8 +58,7 @@ public class CommonsAPI {
 
     @GetMapping("offices")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
-    public ResponseEntity<List<Office>> getAllOffices(){
-
+    public ResponseEntity<List<Office>> getAllOffices() throws Exception {
         return ResponseEntity.ok(commonService.getAllOffices());
     }
 }
