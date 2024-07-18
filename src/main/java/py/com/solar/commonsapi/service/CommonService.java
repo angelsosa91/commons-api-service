@@ -9,10 +9,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public interface CommonService {
-    List<Region> getDepartments();
-    List<Region> getCitiesByDepartmentId(Integer departmentId);
-    List<Region> getNeighborhoodsByCityId(Integer cityId);
+    List<Region> getDepartments() throws Exception;
+    List<Region> getCitiesByDepartmentId(Integer departmentId) throws Exception;
+    List<Region> getNeighborhoodsByCityId(Integer cityId) throws Exception;
     CompletableFuture<MessageEntity> sendNotification(Notification notification);
-
-    List<Office> getAllOffices();
+    List<Office> getAllOffices() throws Exception;
 }
