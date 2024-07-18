@@ -26,10 +26,9 @@ public class CommonServiceImpl implements CommonService {
     private final MessageMapper messageMapper;
     @Override
     public List<Region> getDepartments() throws Exception {
-        try{
+        try {
             return commonMapper.regEntityToModel(commonRepository.getDepartments());
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
     }
@@ -38,10 +37,10 @@ public class CommonServiceImpl implements CommonService {
     public List<Region> getCitiesByDepartmentId(Integer departmentId) throws Exception {
         if(departmentId == null)
             throw new BadRequestException("El id del departamento es requerido");
-        try{
+
+        try {
             return commonMapper.regEntityToModel(commonRepository.getCitiesByDepartmentId(departmentId));
-        }
-        catch (Exception ex){
+        } catch (Exception ex){
             throw new Exception(ex.getMessage());
         }
     }
@@ -50,10 +49,10 @@ public class CommonServiceImpl implements CommonService {
     public List<Region> getNeighborhoodsByCityId(Integer cityId) throws Exception {
         if(cityId == null)
             throw new BadRequestException("El id de la ciudad es requerido");
-        try{
+
+        try {
             return commonMapper.regEntityToModel(commonRepository.getNeighborhoodsByCityId(cityId));
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
     }
@@ -66,13 +65,13 @@ public class CommonServiceImpl implements CommonService {
             if (AMBOS.getValue().equals(notification.getNotificationType())) {
                 //SMS
                 notification.setNotificationType(CommonConstants.SMS);
-                //commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+                commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
                 //EMAIL
                 notification.setNotificationType(CommonConstants.EMAIL);
-                //commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+                commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             } else {
                 //SMS or EMAIL
-                //commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
+                commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             }
 
             if(message.getCodMensaje() > 0)
@@ -80,17 +79,16 @@ public class CommonServiceImpl implements CommonService {
 
             return message;
         });
+
         future.thenAccept(messageMapper::toModel);
         return future;
     }
     @Override
     public List<Office> getAllOffices() throws Exception {
-        try{
+        try {
             return commonMapper.offEntityToModel(commonRepository.getAllOffices());
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
     }
-
 }
