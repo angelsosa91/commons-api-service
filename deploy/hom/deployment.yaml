@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: commons-api-service
+  #namespace: homol
   labels:
     app: commons-api-service
 spec:
@@ -43,4 +44,4 @@ spec:
       volumes:
         - name: access-logs
           persistentVolumeClaim:
-            claimName: hb-core-pv-claim
+            claimName: homol-core-pv-claim
