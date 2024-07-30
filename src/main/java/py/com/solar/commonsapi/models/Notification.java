@@ -39,13 +39,13 @@ public class Notification {
     private String content;
 
     @Schema(description = "Número de teléfono")
-    @NotNull(message = "Celular obligatorio")
-    @NotBlank(message = "Celular obligatorio")
+    //@NotNull(message = "Celular obligatorio")
+    //@NotBlank(message = "Celular obligatorio")
     private String phoneNumber;
 
     @Schema(description = "Correo electrónico")
-    @NotNull(message = "Email obligatorio")
-    @NotBlank(message = "Email obligatorio")
+    //@NotNull(message = "Email obligatorio")
+    //@NotBlank(message = "Email obligatorio")
     private String email;
 
     @Schema(description = "Asunto del correo electrónico")

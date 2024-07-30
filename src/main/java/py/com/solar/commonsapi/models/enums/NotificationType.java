@@ -11,7 +11,7 @@ import java.util.Arrays;
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum NotificationType {
 
-    SMS("SM"), EMAIL("EMAIL"), AMBOS("AM");
+    SMS("SM"), EMAIL("EM"), AMBOS("AM");
 
     private final String name;
     private final String value;

@@ -1,5 +1,6 @@
 package py.com.solar.commonsapi.service;
 
+import com.google.common.base.Strings;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import py.com.solar.commonsapi.constants.CommonConstants;
@@ -63,6 +64,8 @@ public class CommonServiceImpl implements CommonService {
             MessageEntity message = new MessageEntity();
 
             if (AMBOS.getValue().equals(notification.getNotificationType())) {
+                if(Strings.isNullOrEmpty(notification.getPhoneNumber()) && Strings.isNullOrEmpty(notification.getEmail()))
+                    throw new BadRequestException("Email y celuar obligatorio");
                 //SMS
                 notification.setNotificationType(CommonConstants.SMS);
                 commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
@@ -70,6 +73,11 @@ public class CommonServiceImpl implements CommonService {
                 notification.setNotificationType(CommonConstants.EMAIL);
                 commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             } else {
+                if(notification.getNotificationType().equals("SM") && Strings.isNullOrEmpty(notification.getPhoneNumber()))
+                    throw new BadRequestException("Celular Obligatorio");
+
+                if(notification.getNotificationType().equals("EM") && Strings.isNullOrEmpty(notification.getEmail()))
+                    throw new BadRequestException("Email obligatorio");
                 //SMS or EMAIL
                 commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             }
