@@ -51,7 +51,7 @@ ext {
     junitVersion = "4.13.2"
     myBatisVersion = "2.2.2"
     ojdbcVersion = '21.7.0.0'
-    commonsVersion = "1.1"
+    commonsVersion = "1.2"
     googleGuava = "33.0.0-jre"
     ejbApi = "3.2"
     okHttp = "10.2.0"

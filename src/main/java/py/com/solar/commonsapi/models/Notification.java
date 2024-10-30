@@ -1,7 +1,5 @@
 package py.com.solar.commonsapi.models;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,9 +10,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
-
-import static py.com.solar.commonsapi.utils.DateFormatUtils.DEFAULT_DATE_TIME_FORMAT;
 
 @Data
 @Builder
@@ -39,13 +34,9 @@ public class Notification {
     private String content;
 
     @Schema(description = "Número de teléfono")
-    @NotNull(message = "Celular obligatorio")
-    @NotBlank(message = "Celular obligatorio")
     private String phoneNumber;
 
     @Schema(description = "Correo electrónico")
-    @NotNull(message = "Email obligatorio")
-    @NotBlank(message = "Email obligatorio")
     private String email;
 
     @Schema(description = "Asunto del correo electrónico")
