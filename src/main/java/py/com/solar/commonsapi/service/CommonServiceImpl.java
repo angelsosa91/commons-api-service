@@ -18,7 +18,8 @@ import py.com.solar.exceptions.BusinessException;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
-import static py.com.solar.commonsapi.models.enums.NotificationType.*;
+import static py.com.solar.commonsapi.models.enums.NotificationType.AMBOS;
+
 @Service
 @RequiredArgsConstructor
 public class CommonServiceImpl implements CommonService {
@@ -70,12 +71,12 @@ public class CommonServiceImpl implements CommonService {
 
     @Override
     public CompletableFuture<MessageEntity> sendNotification(Notification notification) {
+        requestValidation(notification);
+
         CompletableFuture<MessageEntity> future = CompletableFuture.supplyAsync(() -> {
             MessageEntity message = new MessageEntity();
 
             if (AMBOS.getValue().equals(notification.getNotificationType())) {
-                if(Strings.isNullOrEmpty(notification.getPhoneNumber()) && Strings.isNullOrEmpty(notification.getEmail()))
-                    throw new BadRequestException("Email y celuar obligatorio");
                 //SMS
                 notification.setNotificationType(CommonConstants.SMS);
                 commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
@@ -83,11 +84,6 @@ public class CommonServiceImpl implements CommonService {
                 notification.setNotificationType(CommonConstants.EMAIL);
                 commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             } else {
-                if(notification.getNotificationType().equals("SM") && Strings.isNullOrEmpty(notification.getPhoneNumber()))
-                    throw new BadRequestException("Celular Obligatorio");
-
-                if(notification.getNotificationType().equals("EM") && Strings.isNullOrEmpty(notification.getEmail()))
-                    throw new BadRequestException("Email obligatorio");
                 //SMS or EMAIL
                 commonRepository.sendNotification(commonMapper.notModelToEntity(notification), message);
             }
@@ -101,6 +97,22 @@ public class CommonServiceImpl implements CommonService {
         future.thenAccept(messageMapper::toModel);
         return future;
     }
+
+    private void requestValidation(Notification notification) {
+        if (AMBOS.getValue().equals(notification.getNotificationType())) {
+            if(Strings.isNullOrEmpty(notification.getPhoneNumber()) && Strings.isNullOrEmpty(notification.getEmail()))
+                throw new BadRequestException("Email y celuar obligatorio");
+
+        } else {
+            if(notification.getNotificationType().equals("SM") && Strings.isNullOrEmpty(notification.getPhoneNumber()))
+                throw new RuntimeException("Celular Obligatorio");
+
+            if(notification.getNotificationType().equals("EM") && Strings.isNullOrEmpty(notification.getEmail()))
+                throw new RuntimeException("Email obligatorio");
+        }
+
+    }
+
     @Override
     public List<Office> getAllOffices() throws Exception {
         try {

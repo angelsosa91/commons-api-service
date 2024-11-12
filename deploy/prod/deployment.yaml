@@ -14,8 +14,8 @@ spec:
     metadata:
       labels:
         app: commons-api-service
-      #annotations:
-      #  sidecar.istio.io/inject: "false"
+      annotations:
+        sidecar.istio.io/inject: "false"
     spec:
       serviceAccountName: commons-api-service
       containers:
@@ -32,13 +32,13 @@ spec:
                 name: global-configmap
             - configMapRef:
                 name: env-configmap
-          resources:
-            requests:
-              memory: 512Mi
-              cpu: 1
-            limits:
-              memory: 1024Mi
-              cpu: 2
+          #resources:
+          #  requests:
+          #    memory: 512Mi
+          #    cpu: 1
+          #  limits:
+          #    memory: 1024Mi
+          #    cpu: 2
       imagePullSecrets:
         - name: regcred
       volumes:
