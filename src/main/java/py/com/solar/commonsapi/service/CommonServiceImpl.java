@@ -7,6 +7,7 @@ import py.com.solar.commonsapi.constants.CommonConstants;
 import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.mapper.CommonMapper;
 import py.com.solar.commonsapi.mapper.MessageMapper;
+import py.com.solar.commonsapi.models.Country;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
@@ -30,6 +31,15 @@ public class CommonServiceImpl implements CommonService {
     public List<Region> getDepartments() throws Exception {
         try {
             return commonMapper.regEntityToModel(commonRepository.getDepartments());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
+    }
+
+    @Override
+    public List<Country> getCountries() throws Exception {
+        try {
+            return commonMapper.countryEntityToModel(commonRepository.getCountries());
         } catch (Exception ex) {
             throw new Exception(ex.getMessage());
         }
