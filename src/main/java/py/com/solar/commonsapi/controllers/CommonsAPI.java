@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 <<<<<<< src/main/java/py/com/solar/commonsapi/controllers/CommonsAPI.java
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.*;
 import py.com.solar.commonsapi.models.Country;
 =======
 import org.springframework.web.bind.annotation.*;
