@@ -7,13 +7,16 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< src/main/java/py/com/solar/commonsapi/controllers/CommonsAPI.java
-import org.springframework.web.bind.annotation.*;
-import py.com.solar.commonsapi.models.*;
-=======
-import org.springframework.web.bind.annotation.*;
->>>>>>> src/main/java/py/com/solar/commonsapi/controllers/CommonsAPI.java
-import py.com.solar.commonsapi.models.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import py.com.solar.commonsapi.models.Country;
+import py.com.solar.commonsapi.models.Notification;
+import py.com.solar.commonsapi.models.Office;
+import py.com.solar.commonsapi.models.Region;
 import py.com.solar.commonsapi.service.CommonService;
 import py.com.solar.commonsapi.utils.BaseAPI;
 
