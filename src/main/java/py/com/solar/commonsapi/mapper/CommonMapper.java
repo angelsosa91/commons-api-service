@@ -1,9 +1,11 @@
 package py.com.solar.commonsapi.mapper;
 
 import org.mapstruct.Mapper;
+import py.com.solar.commonsapi.entity.CountryEntity;
 import py.com.solar.commonsapi.entity.NotificationEntity;
 import py.com.solar.commonsapi.entity.OfficeEntity;
 import py.com.solar.commonsapi.entity.RegionEntity;
+import py.com.solar.commonsapi.models.Country;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
@@ -33,5 +35,12 @@ public interface CommonMapper {
     //Office to entity
     //Office offEntityToModel(OfficeEntity officeEntity);
     List<Office> offEntityToModel(List<OfficeEntity> officeEntity);
+
+    //Country to model
+    CountryEntity countryModelToEntity(Country country);
+    List<CountryEntity> countryModelToEntity(List<Country> country);
+    //Region to entity
+    Country countryEntityToModel(CountryEntity countryEntity);
+    List<Country> countryEntityToModel(List<CountryEntity> countryEntity);
 }
 

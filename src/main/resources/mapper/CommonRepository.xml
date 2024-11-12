@@ -4,6 +4,24 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="py.com.solar.commonsapi.repository.CommonRepository">
+    <resultMap id="countryMap"  type="Country">
+        <result column="cod_pais" jdbcType="INTEGER" property="id"/>
+        <result column="descripcion" jdbcType="VARCHAR" property="name"/>
+        <result column="nacionalidad" jdbcType="VARCHAR" property="nationality"/>
+    </resultMap>
+
+    <!--Para listar departamentos-->
+    <select id="getCountries" resultMap="countryMap">
+        SELECT p.cod_pais, p.descripcion, p.nacionalidad, 1 orden
+        FROM ba_paises p
+        WHERE p.cod_pais=586
+        UNION
+        SELECT p.cod_pais, p.descripcion, p.nacionalidad, 2 orden
+        FROM ba_paises p
+        WHERE p.cod_pais!=586
+        ORDER BY 4, 2
+    </select>
+
     <resultMap id="regionMap"  type="Region">
         <result column="code" jdbcType="INTEGER" property="id"/>
         <result column="description" jdbcType="VARCHAR" property="name"/>

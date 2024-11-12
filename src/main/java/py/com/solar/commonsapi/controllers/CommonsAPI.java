@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import py.com.solar.commonsapi.models.Country;
 import py.com.solar.commonsapi.models.Notification;
 import py.com.solar.commonsapi.models.Office;
 import py.com.solar.commonsapi.models.Region;
@@ -28,6 +29,12 @@ import java.util.List;
 public class CommonsAPI {
 
     private final CommonService commonService;
+
+    @GetMapping("countries")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    public ResponseEntity<List<Country>> getCountry() throws Exception {
+        return ResponseEntity.ok(commonService.getCountries());
+    }
 
     @GetMapping("departments")
     @Operation(security = {@SecurityRequirement(name = "bearer-key")})
