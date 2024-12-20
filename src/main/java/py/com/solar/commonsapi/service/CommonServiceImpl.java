@@ -7,15 +7,16 @@ import py.com.solar.commonsapi.constants.CommonConstants;
 import py.com.solar.commonsapi.entity.MessageEntity;
 import py.com.solar.commonsapi.mapper.CommonMapper;
 import py.com.solar.commonsapi.mapper.MessageMapper;
-import py.com.solar.commonsapi.models.Country;
-import py.com.solar.commonsapi.models.Notification;
-import py.com.solar.commonsapi.models.Office;
-import py.com.solar.commonsapi.models.Region;
+import py.com.solar.commonsapi.models.*;
 import py.com.solar.commonsapi.repository.CommonRepository;
 import py.com.solar.exceptions.BadRequestException;
 import py.com.solar.exceptions.BusinessException;
+import py.com.solar.exceptions.NotFoundException;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 import static py.com.solar.commonsapi.models.enums.NotificationType.AMBOS;
@@ -121,4 +122,16 @@ public class CommonServiceImpl implements CommonService {
             throw new Exception(ex.getMessage());
         }
     }
+
+    @Override
+    public Message getErrorMessage(Integer errorId) {
+        Message message = messageMapper.toModel(commonRepository.getErrorMessage(errorId));
+
+        if (message == null) {
+            message = new Message();
+            message.setMessage("Esta función se encuentra fuera de servicio por el momento. Estamos trabajando para mejorarla.");
+        }
+        return message;
+    }
+
 }

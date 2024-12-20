@@ -90,4 +90,16 @@
         ORDER BY bc.COD_DEPARTAMENTO
     </select>
 
+    <resultMap id="messageResultMap" type="Message">
+        <result column="codMensaje" property="codMensaje"/>
+        <result column="mensaje" property="mensaje"/>
+        <result column="tipMensaje" property="tipMensaje"/>
+    </resultMap>
+
+    <select id="getErrorMessage" resultMap="messageResultMap">
+        select b.mensaje , b.tip_mensaje
+        from bw_men_servicios b
+        where b.cod_mensaje = #{errorId}
+    </select>
+
 </mapper>
