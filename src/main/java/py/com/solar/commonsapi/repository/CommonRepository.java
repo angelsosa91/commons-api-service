@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import py.com.solar.commonsapi.entity.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface CommonRepository {
@@ -14,5 +15,9 @@ public interface CommonRepository {
     List<RegionEntity> getNeighborhoodsByCityId(@Param("cityId") Integer cityId);
     void sendNotification(@Param("notification") NotificationEntity notification, @Param("message") MessageEntity message);
     List<OfficeEntity> getAllOffices();
+    MessageEntity getErrorMessage(@Param("errorId") int errorId);
+
 
 }
+
+

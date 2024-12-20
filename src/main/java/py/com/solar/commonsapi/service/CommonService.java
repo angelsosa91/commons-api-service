@@ -1,10 +1,7 @@
 package py.com.solar.commonsapi.service;
 
 import py.com.solar.commonsapi.entity.MessageEntity;
-import py.com.solar.commonsapi.models.Country;
-import py.com.solar.commonsapi.models.Notification;
-import py.com.solar.commonsapi.models.Office;
-import py.com.solar.commonsapi.models.Region;
+import py.com.solar.commonsapi.models.*;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -16,4 +13,5 @@ public interface CommonService {
     List<Region> getNeighborhoodsByCityId(Integer cityId) throws Exception;
     CompletableFuture<MessageEntity> sendNotification(Notification notification);
     List<Office> getAllOffices() throws Exception;
+    Message getErrorMessage(Integer errorId);
 }
