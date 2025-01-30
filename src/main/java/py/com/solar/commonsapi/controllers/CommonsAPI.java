@@ -75,4 +75,10 @@ public class CommonsAPI {
         return (result == null ? ResponseEntity.noContent().build(): ResponseEntity.ok(result));
     }
 
+    @GetMapping("sectors")
+    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    public ResponseEntity<List<Sector>> getSectors() throws Exception {
+        return ResponseEntity.ok(commonService.getSectors());
+    }
+
 }

@@ -102,4 +102,17 @@
         where b.cod_mensaje = #{errorId}
     </select>
 
+    <resultMap id="sectorMap"  type="Sector">
+        <result column="code" jdbcType="VARCHAR" property="id"/>
+        <result column="description" jdbcType="VARCHAR" property="name"/>
+    </resultMap>
+
+    <!--Para listar sectores/rubros-->
+    <select id="getSectors" resultMap="sectorMap">
+        select cod_rub_economico as code, des_rub_superior as description
+        from ge_rub_economicos
+        where cod_rub_eco_superior = cod_rub_economico
+        order by descripcion asc
+    </select>
+
 </mapper>

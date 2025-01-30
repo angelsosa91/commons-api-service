@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Mapper
 public interface CommonRepository {
+
     List<RegionEntity> getDepartments();
     List<CountryEntity> getCountries();
     List<RegionEntity> getCitiesByDepartmentId(@Param("departmentId") Integer departmentId);
@@ -16,8 +17,7 @@ public interface CommonRepository {
     void sendNotification(@Param("notification") NotificationEntity notification, @Param("message") MessageEntity message);
     List<OfficeEntity> getAllOffices();
     MessageEntity getErrorMessage(@Param("errorId") int errorId);
-
-
+    List<SectorEntity> getSectors();
 }
 
 
