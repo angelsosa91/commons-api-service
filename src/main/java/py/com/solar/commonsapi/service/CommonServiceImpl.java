@@ -28,6 +28,7 @@ public class CommonServiceImpl implements CommonService {
     private final CommonRepository commonRepository;
     private final CommonMapper commonMapper;
     private final MessageMapper messageMapper;
+
     @Override
     public List<Region> getDepartments() throws Exception {
         try {
@@ -132,6 +133,15 @@ public class CommonServiceImpl implements CommonService {
             message.setMessage("Esta función se encuentra fuera de servicio por el momento. Estamos trabajando para mejorarla.");
         }
         return message;
+    }
+
+    @Override
+    public List<Sector> getSectors() throws Exception {
+        try {
+            return commonMapper.secEntityToModel(commonRepository.getSectors());
+        } catch (Exception ex) {
+            throw new Exception(ex.getMessage());
+        }
     }
 
 }

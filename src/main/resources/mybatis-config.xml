@@ -12,6 +12,7 @@
         <typeAlias alias="Message" type="py.com.solar.commonsapi.entity.MessageEntity"/>
         <typeAlias alias="Office" type="py.com.solar.commonsapi.entity.OfficeEntity"/>
         <typeAlias alias="Country" type="py.com.solar.commonsapi.entity.CountryEntity"/>
+        <typeAlias alias="Sector" type="py.com.solar.commonsapi.entity.SectorEntity"/>
     </typeAliases>
 
     <mappers>

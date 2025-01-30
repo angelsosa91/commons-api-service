@@ -14,4 +14,5 @@ public interface CommonService {
     CompletableFuture<MessageEntity> sendNotification(Notification notification);
     List<Office> getAllOffices() throws Exception;
     Message getErrorMessage(Integer errorId);
+    List<Sector> getSectors() throws Exception;
 }

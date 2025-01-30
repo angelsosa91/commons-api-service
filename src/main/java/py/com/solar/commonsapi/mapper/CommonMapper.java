@@ -1,14 +1,8 @@
 package py.com.solar.commonsapi.mapper;
 
 import org.mapstruct.Mapper;
-import py.com.solar.commonsapi.entity.CountryEntity;
-import py.com.solar.commonsapi.entity.NotificationEntity;
-import py.com.solar.commonsapi.entity.OfficeEntity;
-import py.com.solar.commonsapi.entity.RegionEntity;
-import py.com.solar.commonsapi.models.Country;
-import py.com.solar.commonsapi.models.Notification;
-import py.com.solar.commonsapi.models.Office;
-import py.com.solar.commonsapi.models.Region;
+import py.com.solar.commonsapi.entity.*;
+import py.com.solar.commonsapi.models.*;
 
 import java.util.List;
 
@@ -42,5 +36,12 @@ public interface CommonMapper {
     //Region to entity
     Country countryEntityToModel(CountryEntity countryEntity);
     List<Country> countryEntityToModel(List<CountryEntity> countryEntity);
+
+    // Sector to model
+    SectorEntity secModelToEntity(Sector sector);
+    List<SectorEntity> secModelToEntity(List<Sector> sector);
+    // Sector to entity
+    Sector secEntityToModel(SectorEntity sectorEntity);
+    List<Sector> secEntityToModel(List<SectorEntity> sectorEntity);
 }
 
