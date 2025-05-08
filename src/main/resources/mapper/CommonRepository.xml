@@ -29,7 +29,7 @@
 
     <!--Para listar departamentos-->
     <select id="getDepartments" resultMap="regionMap">
-        select s.cod_departamento as code, s.descripcion as description from ba_departamentos s
+        select s.cod_departamento as code, s.descripcion as description from ba_departamentos s where s.cod_departamento!=18
     </select>
 
     <!--Para listar ciudades del Paraguay, según departamento-->
