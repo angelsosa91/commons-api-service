@@ -1,0 +1,10 @@
+server:
+  servlet:
+    context-path: /commons
+
+spring:
+  profiles:
+    active: ${PROFILE}
+  application:
+    name: commons-api-service
+    group: solar
