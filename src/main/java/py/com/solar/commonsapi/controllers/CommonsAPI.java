@@ -3,7 +3,6 @@ package py.com.solar.commonsapi.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,33 +23,33 @@ public class CommonsAPI {
     private final CommonService commonService;
 
     @GetMapping("countries")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @Operation
     public ResponseEntity<List<Country>> getCountry() throws Exception {
         return ResponseEntity.ok(commonService.getCountries());
     }
 
     @GetMapping("departments")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @Operation
     public ResponseEntity<List<Region>> getProvince() throws Exception {
         return ResponseEntity.ok(commonService.getDepartments());
     }
 
     @GetMapping("cities/{departmentId}")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @Operation
     public ResponseEntity<List<Region>> getCity(@PathVariable Integer departmentId) throws Exception {
         var result = commonService.getCitiesByDepartmentId(departmentId);
         return (result.isEmpty() ? ResponseEntity.noContent().build(): ResponseEntity.ok(result));
     }
 
     @GetMapping("neighborhoods/{cityId}")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @Operation
     public ResponseEntity<List<Region>> getNeighborhood(@PathVariable Integer cityId) throws Exception {
         var result = commonService.getNeighborhoodsByCityId(cityId);
         return (result.isEmpty() ? ResponseEntity.noContent().build(): ResponseEntity.ok(result));
     }
 
     @PostMapping("notification")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")},
+    @Operation(
             responses = {
                     @ApiResponse(responseCode = "201", description = "Notificación enviada exitosamente")
             })
@@ -60,13 +59,13 @@ public class CommonsAPI {
     }
 
     @GetMapping("offices")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @Operation
     public ResponseEntity<List<Office>> getAllOffices() throws Exception {
         return ResponseEntity.ok(commonService.getAllOffices());
     }
 
     @GetMapping("error-message")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")},
+    @Operation(
             description = "Servicio que se encarga de optener la descripcion de error personalizado del CORE")
     public ResponseEntity<Message> getErrorMessage(
             @Parameter(description = "El codigo de Error")
@@ -76,7 +75,7 @@ public class CommonsAPI {
     }
 
     @GetMapping("sectors")
-    @Operation(security = {@SecurityRequirement(name = "bearer-key")})
+    @Operation
     public ResponseEntity<List<Sector>> getSectors() throws Exception {
         return ResponseEntity.ok(commonService.getSectors());
     }

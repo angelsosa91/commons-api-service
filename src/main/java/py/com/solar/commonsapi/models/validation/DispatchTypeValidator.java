@@ -2,8 +2,8 @@ package py.com.solar.commonsapi.models.validation;
 
 import py.com.solar.commonsapi.models.enums.ShippingDispatchType;
 
-import javax.validation.ConstraintValidator;
-import javax.validation.ConstraintValidatorContext;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 
 public class DispatchTypeValidator implements ConstraintValidator<DispatchType, String> {
 

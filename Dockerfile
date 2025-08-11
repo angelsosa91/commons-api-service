@@ -1,4 +1,4 @@
-FROM registry.solar.com.py/library/openjdk:11.0.14-jre-slim
+FROM ghcr.io/graalvm/jdk-community:21
 
 ##application
 COPY build/libs/commons-api-service*.jar /app.jar
